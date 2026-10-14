@@ -1,0 +1,12 @@
+# The words of the EMBEDS feature in omnibase/consent's panel (its domain, consent):
+# what a sequence or a card frames waits for it (templates/client/_embeds.html.twig,
+# the feature declared by DependencyInjection/Compiler/EmbedsConsentPass).
+features:
+  embeds:
+    label: "Eingebettete Inhalte"
+    description: "Die Präsentationen, Pinnwände und Videos von Canva, Padlet, YouTube, Vimeo... auf den Seiten: von ihrer eigenen Website geladen, die eigene Cookies setzt."
+storage:
+  embeds_canva: "Canva, auf seiner Domain: eine Kennung für Ihren Browser."
+  embeds_canva_display: "Canva, auf seiner Domain: eine Einstellung seiner Anzeige."
+  embeds_vimeo: "Vimeo, auf seiner Domain: eine Kennung für Ihren Browser, für seine Wiedergabestatistik."
+  embeds_youtube: "YouTube, auf seiner Domain: eine Kennung Ihres Geräts und die Einstellungen seines Players, in Ihrem Browser gespeichert."

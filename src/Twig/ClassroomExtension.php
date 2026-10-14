@@ -2,6 +2,7 @@
 
 namespace Base\Classroom\Twig;
 
+use Base\Classroom\DependencyInjection\Compiler\EmbedsConsentPass;
 use Base\Classroom\Entity\Resource;
 use Base\Classroom\Repository\CardRepository;
 use Base\Classroom\Repository\ResourceRepository;
@@ -9,6 +10,7 @@ use Base\Classroom\Repository\SequenceRepository;
 use Base\Classroom\Service\Taxa;
 use Base\Classroom\Security\ResourceVoter;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -22,6 +24,8 @@ final class ClassroomExtension extends AbstractExtension
         private readonly SequenceRepository $sequences,
         private readonly ResourceRepository $resources,
         private readonly Security $security,
+        // omnibase/consent is there: the frames wait for its EMBEDS feature.
+        #[Autowire('%classroom.consent%')] private readonly bool $consent = false,
     ) {
     }
 
@@ -35,6 +39,8 @@ final class ClassroomExtension extends AbstractExtension
             new TwigFunction('classroom_cards', fn (int $limit = 9): array => $this->cards->findFeatured($limit)),
             new TwigFunction('classroom_sequences', fn (int $limit = 3): array => $this->sequences->findLatest($limit)),
             new TwigFunction('classroom_resources', fn (int $limit = 6): array => $this->resources->findPublished([], $limit)),
+            // The consent feature a frame waits for, null when the site has no omnibase/consent (the frame loads at once).
+            new TwigFunction('classroom_consent', fn (): ?string => $this->consent ? EmbedsConsentPass::FEATURE : null),
             new TwigFunction('classroom_may_download', fn (Resource $resource): bool => $this->security->isGranted(ResourceVoter::DOWNLOAD, $resource)),
         ];
     }

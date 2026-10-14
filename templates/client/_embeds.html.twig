@@ -2,14 +2,32 @@
  # What the teacher made elsewhere, framed on the page (glitchr/omnibase's embed_url()):
  # a Canva design, a Padlet board, a video, an exercise. A link no provider
  # is known for stays a link.
+ #
+ # Every frame brings its provider's cookies: on a site with omnibase/consent
+ # it is inert (data-consent-src) until the visitor accepts the EMBEDS feature
+ # (classroom_consent()), and a sentence stands in its place with a button that
+ # opens the detailed section of the cookie panel, where EMBEDS is listed.
  #}
 {% if thing.embeds %}
+{% set consent = classroom_consent() %}
+{% set names = {canva: 'Canva', padlet: 'Padlet', youtube: 'YouTube', vimeo: 'Vimeo', learningapps: 'LearningApps', genially: 'Genially', 'google-slides': 'Google Slides'} %}
 <div class="classroom-embeds">
     {% for embed in thing.embeds %}
         {% set frame = embed_url(embed.url) %}
         {% if frame and frame.src %}
+        {% set provider = names[frame.provider] ?? frame.provider|replace({'-': ' '})|capitalize %}
         <figure class="classroom-embed is-{{ frame.provider }}">
-            <div class="classroom-embed-frame" style="{{ frame.height ? 'height: ' ~ frame.height ~ 'px' : 'aspect-ratio: ' ~ frame.ratio }}"><iframe src="{{ frame.src }}" title="{{ embed.label ?: frame.provider|capitalize }}" loading="lazy" allowfullscreen allow="fullscreen; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+            <div class="classroom-embed-frame" style="{{ frame.height ? 'height: ' ~ frame.height ~ 'px' : 'aspect-ratio: ' ~ frame.ratio }}">
+                {%- if consent -%}
+                <iframe data-consent-script="{{ consent }}" data-consent-src="{{ frame.src }}" title="{{ embed.label ?: provider }}" loading="lazy" allowfullscreen allow="fullscreen; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                <div class="classroom-embed-consent" data-consent-placeholder="{{ consent }}">
+                    <p>{{ '@classroom.embed.consent.text'|trans({provider: provider}) }}</p>
+                    <button type="button" class="classroom-button" data-consent-open="details">{{ '@classroom.embed.consent.choose'|trans }}</button>
+                </div>
+                {%- else -%}
+                <iframe src="{{ frame.src }}" title="{{ embed.label ?: provider }}" loading="lazy" allowfullscreen allow="fullscreen; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                {%- endif -%}
+            </div>
             <figcaption>{% if embed.label %}{{ embed.label }} · {% endif %}<a href="{{ embed.url }}" target="_blank" rel="noopener">{{ (frame.known ? '@classroom.embed.open.' ~ frame.provider : '@classroom.embed.open.other')|trans }}</a></figcaption>
         </figure>
         {% else %}

@@ -8,6 +8,10 @@ embed:
     genially: "In Genially öffnen"
     google-slides: "In Google Slides öffnen"
     other: "Öffnen"
+  # In place of a frame until the visitor accepts the EMBEDS feature of omnibase/consent.
+  consent:
+    text: "Dieser Inhalt stammt von {provider}, das eigene Cookies setzt: Er wird angezeigt, sobald Sie eingebettete Inhalte zulassen."
+    choose: "Cookies verwalten"
 index:
   tab: "Klasse"
   title: "Das Klassenzimmer"

@@ -3,6 +3,7 @@
 namespace Base\Classroom;
 
 use Base\Bundle\AbstractBaseBundle;
+use Base\Classroom\DependencyInjection\Compiler\EmbedsConsentPass;
 use Base\Traits\SingletonTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -26,5 +27,7 @@ class ClassroomBundle extends AbstractBaseBundle
         parent::build($container);
         $this->setMapping($this->getPath().'/src/Entity', 'Base\Classroom\Entity', 'App\Entity\Classroom');
         $this->setMapping($this->getPath().'/src/Repository', 'Base\Classroom\Repository', 'App\Repository\Classroom');
+        // The frames wait for omnibase/consent's EMBEDS feature: declared among the features every site starts from.
+        $container->addCompilerPass(new EmbedsConsentPass());
     }
 }

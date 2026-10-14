@@ -76,6 +76,29 @@ Then migrations and `assets:install` (`public/css/classroom.css`).
 The back office gets a CRUD for each entity and the dashboard widget
 `classroom_overview` (downloads of the month, drafts, resources).
 
+## Embeds and cookies
+
+What a sequence or a card frames (Canva, Padlet, a video...) is read by
+glitchr/omnibase's `embed_url()`. On a site with
+[omnibase/consent](https://github.com/glitchr-studio/omnibase-consent) a frame
+waits for the visitor's yes to the `EMBEDS` feature, which this bundle
+declares (on demand, with what those providers keep) and words in fr, en and
+de; a sentence and a button to the cookie panel stand in its place until then.
+See [docs/downloads-and-embeds.md](docs/downloads-and-embeds.md).
+
+## Tests
+
+```bash
+vendor/bin/phpunit          # the declaration of EMBEDS, the frames before and after the yes, every language's words
+```
+
+In omnibase's harness (`glitchr/omnibase`, `docker/`), on this checkout and
+omnibase/consent's:
+
+```bash
+docker compose -f compose.yml run --rm -v /path/to/consent:/srv/demo/vendor/omnibase/consent -v /path/to/classroom:/srv/demo/vendor/omnibase/classroom omnibase test classroom
+```
+
 ## The shop
 
 `/boutique` (`classroom_shop`) lists the resources for sale, one card each,
