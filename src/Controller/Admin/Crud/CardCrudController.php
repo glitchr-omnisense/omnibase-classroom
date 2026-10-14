@@ -54,15 +54,18 @@ class CardCrudController extends AbstractCrudController
         yield BooleanField::new('featured', '@classroom.admin.card.featured')->setColumns(2);
         yield IntegerField::new('position', '@classroom.admin.card.position')->setColumns(1);
         yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
-        yield TextField::new('headline', '@classroom.admin.card.headline')->setColumns(8)->hideOnIndex();
-        yield SelectField::new('taxa', '@classroom.admin.sequence.levels')->setClass(Level::class)->allowMultipleChoices()->setRequired(false)->setColumns(4);
-        yield SelectField::new('taxa', '@classroom.admin.sequence.subjects')->setClass(Subject::class)->allowMultipleChoices()->setRequired(false)->setColumns(4);
+        yield TextField::new('headline', '@classroom.admin.card.headline')->setColumns(8)->setRequired(false)->hideOnIndex();
+        // One picker per kind, each on its own accessors (setLevels(), setSubjects()): two
+        // pickers on `taxa` were one form field, the last, which offered the card's levels
+        // among the subjects and sent them back as identifiers it could not find.
+        yield SelectField::new('levels', '@classroom.admin.sequence.levels')->setClass(Level::class)->allowMultipleChoices()->setRequired(false)->setSortable(false)->setColumns(4);
+        yield SelectField::new('subjects', '@classroom.admin.sequence.subjects')->setClass(Subject::class)->allowMultipleChoices()->setRequired(false)->setSortable(false)->setColumns(4);
         yield IconField::new('icon', '@classroom.admin.card.icon')->setColumns(4)->setRequired(false);
         yield TextField::new('color', '@classroom.admin.card.color')->setColumns(4)->setRequired(false)->hideOnIndex()->setHelp('@classroom.admin.card.color_help');
         yield EditorField::new('content', '@classroom.admin.card.content')->hideOnIndex()->setFormTypeOption('collab_autosave', true)->setFormTypeOption('collab_live', true);
-        yield TextareaField::new('linksText', '@classroom.admin.card.links')->hideOnIndex()->setHelp('@classroom.admin.card.links_help');
-        yield TextareaField::new('embedsText', '@classroom.admin.embeds')->hideOnIndex()->setHelp('@classroom.admin.embeds_help');
-        yield ImageField::new('image', '@classroom.admin.card.image')->setColumns(6)->hideOnIndex();
+        yield TextareaField::new('linksText', '@classroom.admin.card.links')->setRequired(false)->hideOnIndex()->setHelp('@classroom.admin.card.links_help');
+        yield TextareaField::new('embedsText', '@classroom.admin.embeds')->setRequired(false)->hideOnIndex()->setHelp('@classroom.admin.embeds_help');
+        yield ImageField::new('image', '@classroom.admin.card.image')->setRequired(false)->setColumns(6)->hideOnIndex();
     }
 
     public function createEntity(string $entityFqcn): object

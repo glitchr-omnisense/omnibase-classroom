@@ -74,7 +74,13 @@ Then migrations and `assets:install` (`public/css/classroom.css`).
 `classroom_cards(limit)`, `classroom_sequences(limit)`.
 
 The back office gets a CRUD for each entity and the dashboard widget
-`classroom_overview` (downloads of the month, drafts, resources).
+`classroom_overview` (downloads of the month, drafts, resources). A sequence,
+a card and a resource have one picker per kind of taxa (`levels`, `subjects`,
+`purposes`), each written through its own setter (`setLevels()`...), which
+replaces the taxa of that kind and leaves the others: never two fields on
+`taxa`, which a form keeps as one. Only what a record cannot do without is
+required - a title, a state, a slug (a resource's file) -; the links, the
+frames, the pictures, the texts may be left empty.
 
 ## Embeds and cookies
 
@@ -89,8 +95,13 @@ See [docs/downloads-and-embeds.md](docs/downloads-and-embeds.md).
 ## Tests
 
 ```bash
-vendor/bin/phpunit          # the declaration of EMBEDS, the frames before and after the yes, every language's words
+vendor/bin/phpunit          # the declaration of EMBEDS, the frames before and after the yes, every language's words,
+                            # the taxa written by kind, the back office's fields (one per property, only what is needed required)
 ```
+
+These are units: saving through the back office is a host's functional test
+(apfelschule's `tests/Functional/ClassroomAdminTest.php` creates and edits
+cards, sequences, resources and sessions).
 
 In omnibase's harness (`glitchr/omnibase`, `docker/`), on this checkout and
 omnibase/consent's:

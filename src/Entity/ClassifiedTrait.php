@@ -4,10 +4,13 @@ namespace Base\Classroom\Entity;
 
 /**
  * What the classroom's threads share: their levels, subjects and purposes
- * are their omnibase taxa, read back by kind.
+ * are their omnibase taxa, read back by kind and written by kind (the back
+ * office's three pickers, see TaxaOfKindTrait).
  */
 trait ClassifiedTrait
 {
+    use TaxaOfKindTrait;
+
     /**
      * What the teacher made elsewhere and shows here, framed: a Canva design,
      * a Padlet board, a video, an exercise (glitchr/omnibase's embed_url() says which).
@@ -58,16 +61,34 @@ trait ClassifiedTrait
         return $levels;
     }
 
+    /** @param iterable<Level>|null $levels in place of the levels it had; its subjects and purposes stay */
+    public function setLevels(?iterable $levels): self
+    {
+        return $this->replaceTaxaOf(Level::class, $levels);
+    }
+
     /** @return list<Subject> */
     public function getSubjects(): array
     {
         return array_values(array_filter($this->getTaxa()->toArray(), fn ($taxon) => $taxon instanceof Subject));
     }
 
+    /** @param iterable<Subject>|null $subjects in place of the subjects it had; its levels and purposes stay */
+    public function setSubjects(?iterable $subjects): self
+    {
+        return $this->replaceTaxaOf(Subject::class, $subjects);
+    }
+
     /** @return list<Purpose> */
     public function getPurposes(): array
     {
         return array_values(array_filter($this->getTaxa()->toArray(), fn ($taxon) => $taxon instanceof Purpose));
+    }
+
+    /** @param iterable<Purpose>|null $purposes in place of the purposes it had; its levels and subjects stay */
+    public function setPurposes(?iterable $purposes): self
+    {
+        return $this->replaceTaxaOf(Purpose::class, $purposes);
     }
 
     /** Several levels at once: "multi-niveaux". */
