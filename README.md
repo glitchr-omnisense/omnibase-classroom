@@ -79,9 +79,12 @@ a card and a resource have one picker per kind of taxa (`levels`, `subjects`,
 `purposes`), each written through its own setter (`setLevels()`...), which
 replaces the taxa of that kind and leaves the others: never two fields on
 `taxa`, which a form keeps as one. Only what a record cannot do without is
-required - a title, a state, a slug (a resource's file) -; the links, the
-frames, the pictures, the texts may be left empty. The slug follows the title
-as it is typed (`setTargetFieldName('title')`).
+required - a title, a state, a slug (a resource's file, a session's sequence)
+-; the links, the frames, the pictures, the texts may be left empty. The slug
+follows the title as it is typed (`setTargetFieldName('title')`). The screens
+are named in `translations/entities+intl-icu.{fr,en,de}.yaml` (the domain
+omnibase/admin titles a screen with), the state and the slug in the
+classroom's own words.
 
 ## Embeds and cookies
 
@@ -97,7 +100,8 @@ See [docs/downloads-and-embeds.md](docs/downloads-and-embeds.md).
 
 ```bash
 vendor/bin/phpunit          # the declaration of EMBEDS, the frames before and after the yes, every language's words,
-                            # the taxa written by kind, the back office's fields (one per property, only what is needed required)
+                            # the taxa written by kind, the back office's fields (one per property, only what is needed required,
+                            # CrudRequiredFieldsTest on omnibase/admin's CrudFieldsTestCase), its words in every language
 ```
 
 These are units: saving through the back office is a host's functional test

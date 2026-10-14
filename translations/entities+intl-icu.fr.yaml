@@ -1,0 +1,28 @@
+# The names of omnibase/classroom's entities, which omnibase/admin titles its screens with
+# (fr of /admin/cards, /admin/sequences...).
+classroom:
+  card:
+    _singular: "carte"
+    _plural: "cartes"
+  sequence:
+    _singular: "séquence"
+    _plural: "séquences"
+  session:
+    _singular: "séance"
+    _plural: "séances"
+  resource:
+    _singular: "ressource"
+    _plural: "ressources"
+  level:
+    _singular: "niveau"
+    _plural: "niveaux"
+  subject:
+    _singular: "matière"
+    _plural: "matières"
+  purpose:
+    _singular: "usage"
+    _plural: "pour la classe"
+  product:
+    resource_offer:
+      _singular: "ressource en vente"
+      _plural: "ressources en vente"

@@ -80,6 +80,8 @@ search:
   title: "Results for “{term}”"
   empty: "Nothing for “{term}”. Try another word."
 admin:
+  state: "Status"
+  slug: "Web address"
   embeds: "Embeds (Canva, Padlet, video…)"
   embeds_help: "One link per line, “Label | https://…” or just the address: a published Canva design, a padlet, a YouTube or Vimeo video, a LearningApps, a Genially, Google Slides show in the page; other links stay links."
   taxon:
