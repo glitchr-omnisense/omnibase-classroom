@@ -54,7 +54,7 @@ class ResourceCrudController extends AbstractCrudController
         yield TextField::new('title', '@classroom.admin.resource.title')->setColumns(6);
         yield SelectField::new('visibilityValue', '@classroom.admin.resource.visibility')->setChoices(array_combine(array_map(fn (Visibility $v) => '@classroom.resource.visibility.'.$v->value, Visibility::cases()), array_map(fn (Visibility $v) => $v->value, Visibility::cases())))->setColumns(3);
         yield BooleanField::new('published', '@classroom.admin.resource.published')->setColumns(3);
-        yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
+        yield SlugField::new('slug')->setTargetFieldName('title')->setColumns(4)->hideOnIndex();
         yield FileField::new('file', '@classroom.admin.resource.file')->setColumns(8)->hideOnIndex();
         yield TextField::new('filename', '@classroom.admin.resource.filename')->setColumns(4)->setRequired(false)->hideOnIndex()->setHelp('@classroom.admin.resource.filename_help');
         yield TextareaField::new('description', '@classroom.admin.resource.description')->setRequired(false)->hideOnIndex();

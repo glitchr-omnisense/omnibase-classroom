@@ -76,6 +76,16 @@ class CrudFieldsTest extends TestCase
         }
     }
 
+    /** The slug follows the title as it is typed (else it stays empty, required, and the form is not sent). */
+    public function testTheSlugFollowsTheTitle(): void
+    {
+        foreach (self::screens() as $screen => [$controller, $page]) {
+            $slug = array_values(array_filter(self::fields($controller, $page), fn (FieldDescriptor $field) => 'slug' === $field->getProperty()))[0] ?? null;
+            self::assertNotNull($slug, $screen.': a slug');
+            self::assertSame('title', $slug->getFormTypeOptions()['target'] ?? null, $screen);
+        }
+    }
+
     public function testEachKindOfTaxaHasItsPicker(): void
     {
         foreach (self::screens() as $screen => [$controller, $page]) {

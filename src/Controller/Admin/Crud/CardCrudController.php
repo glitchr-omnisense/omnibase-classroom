@@ -53,7 +53,7 @@ class CardCrudController extends AbstractCrudController
         yield StateField::new('state')->setColumns(3);
         yield BooleanField::new('featured', '@classroom.admin.card.featured')->setColumns(2);
         yield IntegerField::new('position', '@classroom.admin.card.position')->setColumns(1);
-        yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
+        yield SlugField::new('slug')->setTargetFieldName('title')->setColumns(4)->hideOnIndex();
         yield TextField::new('headline', '@classroom.admin.card.headline')->setColumns(8)->setRequired(false)->hideOnIndex();
         // One picker per kind, each on its own accessors (setLevels(), setSubjects()): two
         // pickers on `taxa` were one form field, the last, which offered the card's levels
