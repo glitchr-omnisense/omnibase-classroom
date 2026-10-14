@@ -50,7 +50,7 @@ class SessionCrudController extends AbstractCrudController
         yield IntegerField::new('durationMinutes', '@classroom.admin.session.duration')->setColumns(2)->setRequired(false);
         yield StateField::new('state')->setColumns(2);
         yield TextField::new('title', '@classroom.admin.session.title')->setColumns(8);
-        yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
+        yield SlugField::new('slug')->setTargetFieldName('title')->setColumns(4)->hideOnIndex();
         yield TextField::new('headline', '@classroom.admin.session.aim')->setRequired(false)->setColumns(12)->hideOnIndex();
         yield TextareaField::new('materialsText', '@classroom.admin.session.materials')->setRequired(false)->hideOnIndex()->setHelp('@classroom.admin.sequence.one_per_line');
         yield EditorField::new('content', '@classroom.admin.session.content')->hideOnIndex()->setFormTypeOption('collab_autosave', true)->setFormTypeOption('collab_live', true);

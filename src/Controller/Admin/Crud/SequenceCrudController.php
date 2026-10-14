@@ -59,7 +59,7 @@ class SequenceCrudController extends AbstractCrudController
         yield IdField::new('id')->onlyOnIndex();
         yield TextField::new('title', '@classroom.admin.sequence.title')->setColumns(8);
         yield StateField::new('state')->setColumns(4);
-        yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
+        yield SlugField::new('slug')->setTargetFieldName('title')->setColumns(4)->hideOnIndex();
         yield DateTimeField::new('publishedAt', '@classroom.admin.sequence.published_at')->setRequired(false)->setColumns(4)->hideOnIndex();
         yield BooleanField::new('featured', '@classroom.admin.sequence.featured')->setColumns(2);
         // One picker per kind, each on its own accessors (setLevels(), setSubjects(), setPurposes()),

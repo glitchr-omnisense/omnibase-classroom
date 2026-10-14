@@ -80,7 +80,8 @@ a card and a resource have one picker per kind of taxa (`levels`, `subjects`,
 replaces the taxa of that kind and leaves the others: never two fields on
 `taxa`, which a form keeps as one. Only what a record cannot do without is
 required - a title, a state, a slug (a resource's file) -; the links, the
-frames, the pictures, the texts may be left empty.
+frames, the pictures, the texts may be left empty. The slug follows the title
+as it is typed (`setTargetFieldName('title')`).
 
 ## Embeds and cookies
 
