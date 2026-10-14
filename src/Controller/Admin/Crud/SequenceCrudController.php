@@ -60,22 +60,24 @@ class SequenceCrudController extends AbstractCrudController
         yield TextField::new('title', '@classroom.admin.sequence.title')->setColumns(8);
         yield StateField::new('state')->setColumns(4);
         yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
-        yield DateTimeField::new('publishedAt', '@classroom.admin.sequence.published_at')->setColumns(4)->hideOnIndex();
+        yield DateTimeField::new('publishedAt', '@classroom.admin.sequence.published_at')->setRequired(false)->setColumns(4)->hideOnIndex();
         yield BooleanField::new('featured', '@classroom.admin.sequence.featured')->setColumns(2);
-        yield SelectField::new('taxa', '@classroom.admin.sequence.levels')->setClass(Level::class)->allowMultipleChoices()->setRequired(false)->setColumns(4);
-        yield SelectField::new('taxa', '@classroom.admin.sequence.subjects')->setClass(Subject::class)->allowMultipleChoices()->setRequired(false)->setColumns(4);
-        yield SelectField::new('taxa', '@classroom.admin.sequence.purposes')->setClass(Purpose::class)->allowMultipleChoices()->setRequired(false)->setColumns(4)->hideOnIndex();
+        // One picker per kind, each on its own accessors (setLevels(), setSubjects(), setPurposes()),
+        // never three on `taxa`: they were one form field, the last.
+        yield SelectField::new('levels', '@classroom.admin.sequence.levels')->setClass(Level::class)->allowMultipleChoices()->setRequired(false)->setSortable(false)->setColumns(4);
+        yield SelectField::new('subjects', '@classroom.admin.sequence.subjects')->setClass(Subject::class)->allowMultipleChoices()->setRequired(false)->setSortable(false)->setColumns(4);
+        yield SelectField::new('purposes', '@classroom.admin.sequence.purposes')->setClass(Purpose::class)->allowMultipleChoices()->setRequired(false)->setSortable(false)->setColumns(4)->hideOnIndex();
         yield SelectField::new('periodValue', '@classroom.admin.sequence.period')->setChoices(array_combine(array_map(fn (Period $p) => 'P'.$p->number(), Period::cases()), array_map(fn (Period $p) => $p->value, Period::cases())))->setRequired(false)->setColumns(3);
         yield IntegerField::new('durationMinutes', '@classroom.admin.sequence.duration')->setColumns(3)->setRequired(false)->hideOnIndex();
-        yield TextField::new('headline', '@classroom.admin.sequence.headline')->setColumns(12)->hideOnIndex();
-        yield TextareaField::new('excerpt', '@classroom.admin.sequence.excerpt')->hideOnIndex();
-        yield TextareaField::new('objectivesText', '@classroom.admin.sequence.objectives')->hideOnIndex()->setHelp('@classroom.admin.sequence.one_per_line');
-        yield TextareaField::new('competencesText', '@classroom.admin.sequence.competences')->hideOnIndex()->setHelp('@classroom.admin.sequence.one_per_line');
-        yield TextareaField::new('materials', '@classroom.admin.sequence.materials')->hideOnIndex();
+        yield TextField::new('headline', '@classroom.admin.sequence.headline')->setRequired(false)->setColumns(12)->hideOnIndex();
+        yield TextareaField::new('excerpt', '@classroom.admin.sequence.excerpt')->setRequired(false)->hideOnIndex();
+        yield TextareaField::new('objectivesText', '@classroom.admin.sequence.objectives')->setRequired(false)->hideOnIndex()->setHelp('@classroom.admin.sequence.one_per_line');
+        yield TextareaField::new('competencesText', '@classroom.admin.sequence.competences')->setRequired(false)->hideOnIndex()->setHelp('@classroom.admin.sequence.one_per_line');
+        yield TextareaField::new('materials', '@classroom.admin.sequence.materials')->setRequired(false)->hideOnIndex();
         yield EditorField::new('content', '@classroom.admin.sequence.content')->hideOnIndex()->setFormTypeOption('collab_autosave', true)->setFormTypeOption('collab_live', true);
-        yield TextareaField::new('embedsText', '@classroom.admin.embeds')->hideOnIndex()->setHelp('@classroom.admin.embeds_help');
+        yield TextareaField::new('embedsText', '@classroom.admin.embeds')->setRequired(false)->hideOnIndex()->setHelp('@classroom.admin.embeds_help');
         yield SelectField::new('resources', '@classroom.admin.sequence.resources')->setClass(Resource::class)->allowMultipleChoices()->setRequired(false)->setColumns(6)->hideOnIndex();
-        yield ImageField::new('cover', '@classroom.admin.sequence.cover')->setColumns(6)->hideOnIndex();
+        yield ImageField::new('cover', '@classroom.admin.sequence.cover')->setRequired(false)->setColumns(6)->hideOnIndex();
     }
 
     public function createEntity(string $entityFqcn): object

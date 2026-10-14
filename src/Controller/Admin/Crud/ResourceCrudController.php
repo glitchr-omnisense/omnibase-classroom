@@ -57,10 +57,11 @@ class ResourceCrudController extends AbstractCrudController
         yield SlugField::new('slug')->setColumns(4)->hideOnIndex();
         yield FileField::new('file', '@classroom.admin.resource.file')->setColumns(8)->hideOnIndex();
         yield TextField::new('filename', '@classroom.admin.resource.filename')->setColumns(4)->setRequired(false)->hideOnIndex()->setHelp('@classroom.admin.resource.filename_help');
-        yield TextareaField::new('description', '@classroom.admin.resource.description')->hideOnIndex();
-        yield SelectField::new('taxa', '@classroom.admin.sequence.levels')->setClass(Level::class)->allowMultipleChoices()->setRequired(false)->setColumns(6);
-        yield SelectField::new('taxa', '@classroom.admin.sequence.subjects')->setClass(Subject::class)->allowMultipleChoices()->setRequired(false)->setColumns(6);
-        yield ImageField::new('preview', '@classroom.admin.resource.preview')->setColumns(6)->hideOnIndex();
+        yield TextareaField::new('description', '@classroom.admin.resource.description')->setRequired(false)->hideOnIndex();
+        // One picker per kind, each on its own accessors (setLevels(), setSubjects()), never two on `taxa`.
+        yield SelectField::new('levels', '@classroom.admin.sequence.levels')->setClass(Level::class)->allowMultipleChoices()->setRequired(false)->setSortable(false)->setColumns(6);
+        yield SelectField::new('subjects', '@classroom.admin.sequence.subjects')->setClass(Subject::class)->allowMultipleChoices()->setRequired(false)->setSortable(false)->setColumns(6);
+        yield ImageField::new('preview', '@classroom.admin.resource.preview')->setRequired(false)->setColumns(6)->hideOnIndex();
         yield IntegerField::new('downloads', '@classroom.admin.resource.downloads')->onlyOnIndex();
     }
 

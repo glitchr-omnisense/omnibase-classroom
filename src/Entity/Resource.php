@@ -28,6 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Resource
 {
     use BaseTrait;
+    use TaxaOfKindTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -196,8 +197,14 @@ class Resource
 
         return $levels;
     }
+    /** @param iterable<Level>|null $levels in place of the levels it had; its subjects stay */
+    public function setLevels(?iterable $levels): self { return $this->replaceTaxaOf(Level::class, $levels); }
+
     /** @return list<Subject> */
     public function getSubjects(): array { return array_values(array_filter($this->taxa->toArray(), fn ($t) => $t instanceof Subject)); }
+
+    /** @param iterable<Subject>|null $subjects in place of the subjects it had; its levels stay */
+    public function setSubjects(?iterable $subjects): self { return $this->replaceTaxaOf(Subject::class, $subjects); }
     public function getLevelsLabel(): string { return implode(' · ', array_map(fn (Level $l) => $l->getShort(), $this->getLevels())); }
 
     /** @return Collection<int, Sequence> */
