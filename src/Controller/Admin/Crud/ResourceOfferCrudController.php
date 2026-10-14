@@ -23,6 +23,6 @@ class ResourceOfferCrudController extends ProductCrudController
     public function configureFields(string $pageName): iterable
     {
         yield from parent::configureFields($pageName);
-        yield SelectField::new('resource', '@classroom.admin.offer.resource')->setClass(Resource::class)->setColumns(6);
+        yield SelectField::new('resource', '@classroom.admin.offer.resource')->setRequired(false)->setClass(Resource::class)->setColumns(6);
     }
 }
