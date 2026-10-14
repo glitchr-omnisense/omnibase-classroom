@@ -2,7 +2,8 @@
 <!-- bootstrap="tests/bootstrap.php" rather than vendor/autoload.php: installed
      inside a host application, that application's autoloader never picks up
      this bundle's autoload-dev, so the bootstrap registers the namespaces
-     itself. The tests are units: no kernel, no database. -->
+     itself. The tests are units, but for PeriodFieldTest: in a host application
+     (omnibase's harness) it builds a form with the kernel, skipped elsewhere. -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" bootstrap="tests/bootstrap.php">
   <testsuites>
     <testsuite name="unit">

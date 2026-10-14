@@ -80,6 +80,8 @@ search:
   title: "Résultats pour « {term} »"
   empty: "Rien pour « {term} ». Essayez un autre mot."
 admin:
+  state: "État"
+  slug: "Adresse web"
   embeds: "Intégrations (Canva, Padlet, vidéo…)"
   embeds_help: "Un lien par ligne, « Libellé | https://… » ou juste l'adresse : un design Canva publié, un padlet, une vidéo YouTube ou Vimeo, un LearningApps, un Genially, des Google Slides s'affichent dans la page ; les autres liens restent des liens."
   taxon:

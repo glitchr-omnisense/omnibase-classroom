@@ -80,6 +80,8 @@ search:
   title: "Ergebnisse für „{term}“"
   empty: "Nichts für „{term}“. Versuchen Sie ein anderes Wort."
 admin:
+  state: "Status"
+  slug: "Webadresse"
   embeds: "Einbettungen (Canva, Padlet, Video…)"
   embeds_help: "Ein Link pro Zeile, „Bezeichnung | https://…“ oder nur die Adresse: ein veröffentlichtes Canva-Design, ein Padlet, ein YouTube- oder Vimeo-Video, LearningApps, Genially, Google Slides erscheinen auf der Seite; andere Links bleiben Links."
   taxon:
