@@ -102,7 +102,10 @@
 .classroom-shop-steps { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; margin: 0 0 1.8rem; padding: .9rem 1.1rem; list-style: none; border: 1px dashed var(--_line); border-radius: .9rem; background: var(--_surface); color: var(--_soft); font-size: .92rem; }
 .classroom-shop-steps li { display: flex; align-items: center; gap: .5rem; }
 .classroom-shop-steps b { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--_accent); color: var(--classroom-on-accent, #fff); font-size: .8rem; }
-.classroom-shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: 1.4rem; align-items: start; }
+.classroom-shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); grid-auto-rows: 1fr; gap: 1.4rem; }
+/* Every offer the same height, whatever it says: one line of pills, a title of two lines at most and a
+   text of three, each cut with an ellipsis (the whole of it is the resource's page), the order form at the
+   foot; the rows all as tall as the tallest card. */
 .classroom-offer { display: flex; flex-direction: column; border: 1px solid var(--_line); border-radius: .9rem; overflow: hidden; background: var(--_surface); scroll-margin-top: 6rem; }
 .classroom-offer:target { outline: 2px solid var(--_accent); outline-offset: 2px; }
 .classroom-offer-cover { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 10; background: color-mix(in srgb, var(--_accent) 8%, var(--_surface)); text-decoration: none; }
@@ -111,10 +114,13 @@
 .classroom-offer-cover .classroom-card-ext { font-size: 2rem; font-weight: 800; color: color-mix(in srgb, var(--_accent) 55%, transparent); }
 .classroom-offer-price { position: absolute; right: .8rem; bottom: .8rem; padding: .25rem .7rem; border-radius: 2rem; background: var(--_accent); color: var(--classroom-on-accent, #fff); font-weight: 800; }
 .classroom-offer-price .marketplace-price { color: inherit; font-weight: inherit; }
-.classroom-offer-body { display: grid; gap: .55rem; padding: 1rem 1.1rem 1.2rem; }
-.classroom-offer-body h2 { margin: 0; font-family: inherit; font-size: 1.12rem; font-weight: 700; line-height: 1.35; }
+.classroom-offer-body { flex: 1; display: flex; flex-direction: column; gap: .55rem; padding: 1rem 1.1rem 1.2rem; }
+.classroom-offer-body > .classroom-card-pills { flex-wrap: nowrap; overflow: hidden; -webkit-mask-image: linear-gradient(to left, transparent, #000 2rem); mask-image: linear-gradient(to left, transparent, #000 2rem); }
+.classroom-offer-body > .classroom-card-pills > * { flex: none; }
+.classroom-offer-body > .classroom-card-meta { margin-top: auto; }
+.classroom-offer-body h2 { margin: 0; font-family: inherit; font-size: 1.12rem; font-weight: 700; line-height: 1.35; min-height: calc(2 * 1.35em); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
 .classroom-offer-body h2 a { color: inherit; text-decoration: none; }
-.classroom-offer-text { margin: 0; color: var(--_soft); font-size: .93rem; }
+.classroom-offer-text { margin: 0; color: var(--_soft); font-size: .93rem; line-height: 1.55; min-height: calc(3 * 1.55em); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
 .classroom-offer .marketplace-quick { --marketplace-accent: var(--_accent); --marketplace-on-accent: var(--classroom-on-accent, #fff); --marketplace-line: var(--_line); --marketplace-surface: var(--_surface); --marketplace-soft: var(--_soft); margin-top: .3rem; }
 .classroom-shop-foot { margin-top: 2rem; }
 .classroom-thanks { max-width: 46rem; }
