@@ -89,7 +89,7 @@ classroom's own words.
 ## Embeds and cookies
 
 What a sequence or a card frames (Canva, Padlet, a video...) is read by
-glitchr/omnibase's `embed_url()`. On a site with
+omniscient/omnibase's `embed_url()`. On a site with
 [omnibase/consent](https://github.com/glitchr-studio/omnibase-consent) a frame
 waits for the visitor's yes to the `EMBEDS` feature, which this bundle
 declares (on demand, with what those providers keep) and words in fr, en and
@@ -108,7 +108,7 @@ These are units: saving through the back office is a host's functional test
 (apfelschule's `tests/Functional/ClassroomAdminTest.php` creates and edits
 cards, sequences, resources and sessions).
 
-In omnibase's harness (`glitchr/omnibase`, `docker/`), on this checkout and
+In omnibase's harness (`omniscient/omnibase`, `docker/`), on this checkout and
 omnibase/consent's:
 
 ```bash

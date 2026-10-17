@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.2",
         "doctrine/orm": "^2.15|^3.0",
-        "glitchr/omnibase": "3.0.*-dev",
+        "omniscient/omnibase": "3.0.*-dev",
         "omnibase/admin": "dev-main",
         "phpoffice/phpspreadsheet": "^1.23|^2.0|^3.0|^4.0|^5.0",
         "symfony/config": "^6.0|^7.0|^8.0",
