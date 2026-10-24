@@ -3,7 +3,7 @@
 namespace Base\Classroom\Controller\Admin\Crud;
 
 use Base\Classroom\Entity\Purpose;
-use Base\Controller\Backoffice\Crud\Thread\TaxonCrudController;
+use Base\Admin\Controller\Crud\Thread\TaxonCrudController;
 use Base\Field\IntegerField;
 use Base\Admin\Config\Actions;
 use Base\Classroom\Controller\Admin\OpenToAdminsTrait;
