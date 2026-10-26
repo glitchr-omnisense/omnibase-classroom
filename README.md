@@ -1,6 +1,6 @@
 # Classroom
 
-A teacher's open classroom on [omnibase](https://github.com/glitchr-studio/omnibase):
+A teacher's open classroom on [omnibase](https://github.com/glitchr-omnisense/omnibase):
 what a colleague passing by may pick up - the way the French teachers' sites
 (Lutin Bazar, Charivari, Orphée) organise things, built on omnibase's own
 Thread and Taxon instead of a blog engine.
@@ -89,8 +89,8 @@ classroom's own words.
 ## Embeds and cookies
 
 What a sequence or a card frames (Canva, Padlet, a video...) is read by
-omniscient/omnibase's `embed_url()`. On a site with
-[omnibase/consent](https://github.com/glitchr-studio/omnibase-consent) a frame
+omnisense/omnibase's `embed_url()`. On a site with
+[omnibase/consent](https://github.com/glitchr-omnisense/omnibase-consent) a frame
 waits for the visitor's yes to the `EMBEDS` feature, which this bundle
 declares (on demand, with what those providers keep) and words in fr, en and
 de; a sentence and a button to the cookie panel stand in its place until then.
@@ -108,7 +108,7 @@ These are units: saving through the back office is a host's functional test
 (apfelschule's `tests/Functional/ClassroomAdminTest.php` creates and edits
 cards, sequences, resources and sessions).
 
-In omnibase's harness (`omniscient/omnibase`, `docker/`), on this checkout and
+In omnibase's harness (`omnisense/omnibase`, `docker/`), on this checkout and
 omnibase/consent's:
 
 ```bash
