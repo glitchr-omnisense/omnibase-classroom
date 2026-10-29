@@ -19,11 +19,8 @@ docker run --rm --network none \
 
 Run on 2026-10-27 with both at HEAD: 27 tests, 1 error.
 
-> [!WARNING]
-> Known defect: `EmbedsConsentTest::testThePanelListsEmbedsWithTheBundlesWords` reads
-> omnibase/consent's `config/features.php` three directories above
-> `Base\Consent\Twig\ConsentExtension`'s file, which omnibase/consent now declares under
-> `src/Bridge/Symfony/Twig/`: the path it builds does not exist.
+`EmbedsConsentTest` takes omnibase/consent's own features from `ConsentPanel::features()`, not
+from a path guessed beside a class's file.
 
 | File | What |
 |---|---|

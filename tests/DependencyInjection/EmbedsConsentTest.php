@@ -74,9 +74,11 @@ class EmbedsConsentTest extends TestCase
         if (!class_exists(ConsentTwig::class)) {
             self::markTestSkipped('omnibase/consent is not installed here.');
         }
-        $consentFeatures = \dirname((new \ReflectionClass(ConsentTwig::class))->getFileName(), 3).'/config/features.php';
+        // The bundle's own list, as omnibase/consent gives it (ConsentPanel::features(), its
+        // config/features.php): not a path guessed from a class's file, which moved under
+        // src/Bridge/Symfony/ when the Twig extension became a bridge.
         $container = new ContainerBuilder();
-        $container->setParameter('consent.defaults', require $consentFeatures);
+        $container->setParameter('consent.defaults', \Base\Consent\ConsentPanel::features());
         (new EmbedsConsentPass())->process($container);
         $defaults = $container->getParameter('consent.defaults');
 
