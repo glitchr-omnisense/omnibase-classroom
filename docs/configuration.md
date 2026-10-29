@@ -43,9 +43,9 @@ classroom:
 | `per_page` | int, 1 or more | `24` | `ClassroomController` |
 | `from_email` | string or null | `null` | `OrderPaidSubscriber` |
 
-> [!WARNING]
-> Known defect: `storage_dir` is declared and read by nothing, where it says the resources are
-> there: the files go to the flysystem storage `local.classroom`, whose directory the host sets.
+`storage_dir` is deprecated: it was read by nothing. The files go to the flysystem storage
+`local.classroom`, whose directory the site sets in its `flysystem.yaml`; a site that still sets
+`storage_dir` gets Symfony's deprecation notice.
 
 The extension also sets `classroom.consent`: whether the container has omnibase/consent's
 extension.

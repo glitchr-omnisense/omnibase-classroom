@@ -19,7 +19,7 @@ class ClassroomConfiguration extends AbstractBaseConfiguration
 
         $treeBuilder->getRootNode()
             ->children()
-                ->scalarNode('storage_dir')->defaultValue('%kernel.project_dir%/var/storage/classroom')->info('Where the resources are (the local.classroom flysystem storage points there).')->end()
+                ->scalarNode('storage_dir')->setDeprecated('omnibase/classroom', '1.0', 'The "%node%" option at "%path%" is read by nothing: the resources go to the flysystem storage local.classroom, whose directory the site sets in flysystem.yaml; remove it.')->defaultValue('%kernel.project_dir%/var/storage/classroom')->info('Deprecated, read by nothing: the resources go to the flysystem storage local.classroom, whose directory the site sets.')->end()
                 ->scalarNode('accel_prefix')->defaultValue('')->info('nginx internal location streaming the files (X-Accel-Redirect); empty: PHP streams them.')->end()
                 ->integerNode('download_ttl')->min(30)->defaultValue(600)->info('Seconds a signed download link stays valid.')->end()
                 ->integerNode('preview_rows')->min(1)->defaultValue(30)->info('Rows of a spreadsheet shown in a resource\'s preview.')->end()
