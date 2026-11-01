@@ -2,6 +2,7 @@
 
 namespace Base\Classroom\Entity;
 
+use Base\Contract\Link;
 use Base\Classroom\Enum\Period;
 use Base\Classroom\Repository\SequenceRepository;
 use Base\Database\Attribute\DiscriminatorEntry;
@@ -35,7 +36,7 @@ class Sequence extends Thread implements LinkableInterface
 
     public function __toLink(array $routeParameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): ?string
     {
-        return $this->getRouter()->generate('classroom_sequence', array_merge($routeParameters, ['slug' => $this->getSlug()]), $referenceType);
+        return Link::to('classroom_sequence', array_merge($routeParameters, ['slug' => $this->getSlug()]), $referenceType);
     }
 
     /**

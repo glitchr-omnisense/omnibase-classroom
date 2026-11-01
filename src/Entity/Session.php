@@ -2,6 +2,7 @@
 
 namespace Base\Classroom\Entity;
 
+use Base\Contract\Link;
 use Base\Classroom\Repository\SessionRepository;
 use Base\Database\Attribute\DiscriminatorEntry;
 use Base\Entity\Thread;
@@ -29,7 +30,7 @@ class Session extends Thread implements LinkableInterface
     {
         $sequence = $this->getSequence();
 
-        return $sequence ? $this->getRouter()->generate('classroom_sequence', array_merge($routeParameters, ['slug' => $sequence->getSlug(), '_fragment' => 'seance-'.$this->getPosition()]), $referenceType) : null;
+        return $sequence ? Link::to('classroom_sequence', array_merge($routeParameters, ['slug' => $sequence->getSlug(), '_fragment' => 'seance-'.$this->getPosition()]), $referenceType) : null;
     }
 
     #[ORM\Column(type: 'integer')]

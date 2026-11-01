@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+- `Card`, `Sequence` and `Session::__toLink()` link through `Base\Contract\Link::to()` (the Urls contract; the same address under
+  Symfony, in the core 3.x and 4.x) instead of BaseTrait's `getRouter()->generate()`, which the
+  core deprecates since BaseTrait names contracts only (omnisense/omnibase 4.x, step F2f).
+
 ### Fixed
 - `EmbedsConsentTest` takes omnibase/consent's own features from `ConsentPanel::features()`: it
   built a path three directories above `Base\Consent\Twig\ConsentExtension`'s file, which
