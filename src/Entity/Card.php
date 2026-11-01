@@ -2,6 +2,7 @@
 
 namespace Base\Classroom\Entity;
 
+use Base\Contract\Link;
 use Base\Classroom\Repository\CardRepository;
 use Base\Database\Attribute\DiscriminatorEntry;
 use Base\Database\Attribute\Uploader;
@@ -31,7 +32,7 @@ class Card extends Thread implements LinkableInterface
 
     public function __toLink(array $routeParameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): ?string
     {
-        return $this->getRouter()->generate('classroom_card', array_merge($routeParameters, ['slug' => $this->getSlug()]), $referenceType);
+        return Link::to('classroom_card', array_merge($routeParameters, ['slug' => $this->getSlug()]), $referenceType);
     }
 
     #[ORM\Column(type: 'text', nullable: true)]
