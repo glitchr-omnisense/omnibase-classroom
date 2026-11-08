@@ -6,7 +6,7 @@ use Base\Classroom\DependencyInjection\ClassroomExtension;
 use Base\Classroom\DependencyInjection\Compiler\EmbedsConsentPass;
 use Base\Consent\DependencyInjection\ConsentConfiguration;
 use Base\Consent\Twig\ConsentExtension as ConsentTwig;
-use Base\Routing\AdvancedRouterInterface;
+use Omnibridge\Symfony\Omnibase\Routing\AdvancedRouterInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
