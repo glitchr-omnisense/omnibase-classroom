@@ -21,7 +21,7 @@ use Base\Field\SelectField;
 use Base\Field\SlugField;
 use Base\Field\TextareaField;
 use Base\Field\TextField;
-use Doctrine\ORM\EntityManagerInterface;
+use Omnibridge\Persistence\UnitOfWork;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -78,16 +78,16 @@ class ResourceCrudController extends AbstractCrudController
     }
 
     /** Before the file lands: its name, type and size kept on the row. */
-    public function persistEntity(EntityManagerInterface $entityManager, object $entity): void
+    public function persistRecord(UnitOfWork $unitOfWork, object $entity): void
     {
         $this->describeFile($entity);
-        parent::persistEntity($entityManager, $entity);
+        parent::persistRecord($unitOfWork, $entity);
     }
 
-    public function updateEntity(EntityManagerInterface $entityManager, object $entity): void
+    public function updateRecord(UnitOfWork $unitOfWork, object $entity): void
     {
         $this->describeFile($entity);
-        parent::updateEntity($entityManager, $entity);
+        parent::updateRecord($unitOfWork, $entity);
     }
 
     private function describeFile(object $resource): void
