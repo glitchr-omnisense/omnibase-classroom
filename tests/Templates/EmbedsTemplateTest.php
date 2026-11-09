@@ -14,7 +14,7 @@ use Twig\TwigFunction;
  * @Classroom/client/_embeds.html.twig: on a site with omnibase/consent a frame
  * has no address until the visitor accepts EMBEDS, and a sentence with a
  * button to the cookie panel stands in its place; without it, the frame
- * loads with the page. Rendered with the bundle's words, glitchr/omnibase's
+ * loads with the page. Rendered with the bundle's words, omnisense/omnibase's
  * embed_url() answered here.
  */
 class EmbedsTemplateTest extends TestCase

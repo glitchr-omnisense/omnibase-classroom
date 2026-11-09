@@ -13,7 +13,7 @@ trait ClassifiedTrait
 
     /**
      * What the teacher made elsewhere and shows here, framed: a Canva design,
-     * a Padlet board, a video, an exercise (glitchr/omnibase's embed_url() says which).
+     * a Padlet board, a video, an exercise (omnisense/omnibase's embed_url() says which).
      *
      * @var list<array{url: string, label: string}>
      */

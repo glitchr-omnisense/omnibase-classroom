@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * levels and subjects (taxa, like the threads), and who it is for: anyone,
  * the members, or whoever bought it (a Product\ResourceOffer sells it). The
  * file stays out of public/ (the local.classroom storage) and is served
- * through signed links (glitchr/omnibase's Base\Service\DownloadLinks); each download is counted.
+ * through signed links (omnisense/omnibase's Base\Service\DownloadLinks); each download is counted.
  */
 #[ORM\Entity(repositoryClass: ResourceRepository::class)]
 #[ORM\Table(name: 'classroom_resource')]

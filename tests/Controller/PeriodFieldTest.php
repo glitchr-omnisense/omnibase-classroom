@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
  * A new sequence has no period: the entity holds none, the select of the
  * form starts with an empty option (no P1 chosen for the teacher), and sent
  * empty the period stays empty. P1 was shown, and sent, by a select printed
- * without that option (glitchr/omnibase before daaf428).
+ * without that option (omnisense/omnibase before daaf428).
  * In a host application only (omnibase's harness): the form is built by
  * omnibase/admin's FieldFormBuilder with omnibase's SelectType.
  */
