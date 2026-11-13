@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-13
+
+### Changed
+
+- Installs with the default minimum-stability: stable requirements (`omnisense/omnibase` ^5.1, `omnibridge/symfony` ^1.1, `omnibase/admin` ^1.0), a branch alias,
+  no `minimum-stability: dev` left to the sites.
+- CI: glitchr-studio/ci's package workflow (the bundle installed alone, composer validate, PHPUnit,
+  PHPStan against its baseline, a consumer install without require-dev) and its release workflow.
+- `doctrine/doctrine-bundle` required: the repositories extend its `ServiceEntityRepository`.
+- require-dev: PHPUnit, and omnibase/marketplace for the resources sold (its tests and PHPStan).
+
 ### Changed
 - `ResourceCrudController` describes the file in `persistRecord()` / `updateRecord()`, omnibase/admin's write hooks on the
   persistence the site chose, in place of the former `persistEntity()` / `updateEntity(EntityManagerInterface)`

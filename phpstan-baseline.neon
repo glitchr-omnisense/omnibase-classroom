@@ -1,0 +1,73 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Entitlement.php
+
+		-
+			message: '#^Method Base\\Classroom\\Entity\\Entitlement\:\:getUser\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Entitlement.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Classroom\\Entity\\Entitlement\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Entitlement.php
+
+		-
+			message: '#^Property Base\\Classroom\\Entity\\Entitlement\:\:\$user has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Entitlement.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Resource.php
+
+		-
+			message: '#^Method Base\\Classroom\\Entity\\Resource\:\:getOwner\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Resource.php
+
+		-
+			message: '#^Parameter \$owner of method Base\\Classroom\\Entity\\Resource\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Resource.php
+
+		-
+			message: '#^Parameter \$owner of method Base\\Classroom\\Entity\\Resource\:\:setOwner\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Resource.php
+
+		-
+			message: '#^Property Base\\Classroom\\Entity\\Resource\:\:\$owner has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Resource.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/EventSubscriber/OrderPaidSubscriber.php
+
+		-
+			message: '#^Parameter \$customer of method Base\\Classroom\\EventSubscriber\\OrderPaidSubscriber\:\:mail\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/EventSubscriber/OrderPaidSubscriber.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Repository/EntitlementRepository.php

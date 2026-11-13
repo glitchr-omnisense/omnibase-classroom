@@ -8,7 +8,8 @@ order: 10
 ## Requirements
 
 What `composer.json` requires: PHP 8.2 or later, `doctrine/orm` 2.15 or 3,
-`omnisense/omnibase` 3.0, 4.0 or 5.0, `omnibridge/symfony` 1.x, `omnibase/admin`,
+`omnisense/omnibase` 5.1 or later 5.x, `omnibridge/symfony` 1.1 or later, `omnibase/admin` 1.x,
+`doctrine/doctrine-bundle` 2.13 or 3,
 `phpoffice/phpspreadsheet` 1.23 to 5, and `symfony/config`, `dependency-injection`, `form`,
 `http-kernel` and `security-bundle` 6, 7 or 8. It suggests omnibase/marketplace (selling
 resources) and omnibase/blog (comments under a sequence); it works with omnibase/consent when

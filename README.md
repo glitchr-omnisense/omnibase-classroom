@@ -31,13 +31,22 @@ an image through omnibase's thumbnails.
 ## Install
 
 ```bash
-composer require omnibase/classroom:dev-main
+composer require omnibase/classroom
 ```
+
+Under Symfony it runs on the core's Symfony host: Composer brings `omnisense/omnibase` 5.1 and
+`omnibridge/symfony` with it; `config/bundles.php` registers the core's bundle before this one
+(see the core's README for the other bundles a site usually adds):
 
 ```php
 // config/bundles.php
+Omnibridge\Symfony\Omnibase\BaseBundle::class => ['all' => true],
+Base\Admin\AdminBundle::class => ['all' => true],
 Base\Classroom\ClassroomBundle::class => ['all' => true],
 ```
+
+With the route, the storage below and the schema updated, `/sequences` lists the learning
+sequences and `/ressources` the resources to download.
 
 ```yaml
 # config/routes.yaml
