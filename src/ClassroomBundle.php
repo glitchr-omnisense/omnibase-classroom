@@ -2,7 +2,7 @@
 
 namespace Base\Classroom;
 
-use Base\Bundle\AbstractBaseBundle;
+use Omnibridge\Symfony\Omnibase\Bundle\AbstractBaseBundle;
 use Base\Classroom\DependencyInjection\Compiler\EmbedsConsentPass;
 use Base\Traits\SingletonTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
