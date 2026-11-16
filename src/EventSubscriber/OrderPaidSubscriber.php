@@ -7,7 +7,7 @@ use Base\Classroom\Entity\Entitlement;
 use Base\Classroom\Entity\Product\ResourceOffer;
 use Base\Classroom\Repository\EntitlementRepository;
 use Base\Marketplace\Event\OrderPaidEvent;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use Psr\Log\LoggerInterface;
 use Base\Marketplace\Entity\Order;
 use Base\Marketplace\Service\QuickOrder;
@@ -27,7 +27,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class OrderPaidSubscriber
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
         private readonly EntitlementRepository $entitlements,
         private readonly ?LoggerInterface $logger = null,
         private readonly ?MailerInterface $mailer = null,
@@ -59,11 +59,11 @@ final class OrderPaidSubscriber
             if ($this->entitlements->findOne($customer, $resource)) {
                 continue;
             }
-            $this->entityManager->persist(new Entitlement($customer, $resource, (string) $order->getReference()));
+            $this->unitOfWork->persist(new Entitlement($customer, $resource, (string) $order->getReference()));
             $written = true;
         }
         if ($written) {
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
             $this->mail($order, $customer);
         }
     }

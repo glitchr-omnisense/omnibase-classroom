@@ -40,7 +40,7 @@ class PeriodFieldTest extends KernelTestCase
         $fields = array_filter(iterator_to_array($crud->configureFields(FieldDescriptor::PAGE_NEW), false), fn ($field) => 'periodValue' === $field->getAsDto()->getProperty());
         self::assertCount(1, $fields);
 
-        return (new FieldFormBuilder(static::getContainer()->get('form.factory'), static::getContainer()->get('doctrine')))
+        return (new FieldFormBuilder(static::getContainer()->get('form.factory'), static::getContainer()->get(\Base\Contract\UnitOfWork::class)))
             ->createForm($sequence, $fields, FieldDescriptor::PAGE_NEW, ['csrf_protection' => false]);
     }
 

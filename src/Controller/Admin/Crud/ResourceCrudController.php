@@ -21,7 +21,7 @@ use Base\Field\SelectField;
 use Base\Field\SlugField;
 use Base\Field\TextareaField;
 use Base\Field\TextField;
-use Omnibridge\Persistence\UnitOfWork;
+use Base\Contract\UnitOfWork;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -111,17 +111,17 @@ class ResourceCrudController extends AbstractCrudController
     {
         /** @var Resource $resource */
         $resource = $this->findEntity($entityId);
-        $offer = $this->entityManager->getRepository(\Base\Classroom\Entity\Product\ResourceOffer::class)->findOneBy(['resource' => $resource]);
+        $offer = $this->repositories->of(\Base\Classroom\Entity\Product\ResourceOffer::class)->findOneBy(['resource' => \Base\Database\Repository\Finder\Key::of($resource)]);
         if (!$offer) {
-            $store = $this->entityManager->getRepository(\Base\Marketplace\Entity\Store::class)->findOneBy([], ['id' => 'ASC']);
+            $store = $this->repositories->of(\Base\Marketplace\Entity\Store::class)->findOneBy([], ['id' => 'ASC']);
             $offer = new \Base\Classroom\Entity\Product\ResourceOffer(null, $store);
             $offer->setTitle($resource->getTitle());
             $offer->setExcerpt($resource->getDescription());
             $offer->setResource($resource);
             $offer->setState(\Base\Enum\ThreadState::DRAFT);
             $resource->setVisibility(Visibility::PAID);
-            $this->entityManager->persist($offer);
-            $this->entityManager->flush();
+            $this->unitOfWork->persist($offer);
+            $this->unitOfWork->flush();
             $this->addFlash('success', '@classroom.admin.resource.flash.offer_created');
         }
 

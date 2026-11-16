@@ -9,14 +9,15 @@ use Base\Classroom\Entity\Resource;
 use Base\Classroom\Repository\EntitlementRepository;
 use Base\Classroom\Repository\ResourceRepository;
 use Base\Classroom\Repository\SequenceRepository;
+use Base\Contract\Runtime;
 use Base\Enum\ThreadState;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Database\Repository\Repositories;
 
 /** The classroom at a glance: sequences online and in draft, cards, resources, downloads, what was bought this month. */
 final class ClassroomOverviewWidgetType implements DashboardWidgetTypeInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private readonly Repositories $repositories,
         private readonly SequenceRepository $sequences,
         private readonly ResourceRepository $resources,
         private readonly EntitlementRepository $entitlements,
@@ -35,13 +36,14 @@ final class ClassroomOverviewWidgetType implements DashboardWidgetTypeInterface
 
     public function getTemplateVars(MenuItem $widget): array
     {
-        $month = (new \DateTimeImmutable('first day of this month'))->setTime(0, 0);
+        // The visitor's month (in the visitor's zone), as the instant it starts.
+        $month = Runtime::clock()->now()->setTimezone(new \DateTimeZone(Runtime::find(\Base\Contract\Locales::class)?->getTimezone() ?? date_default_timezone_get()))->modify('first day of this month')->setTime(0, 0);
 
         return ['tiles' => [
             'sequences' => ['value' => $this->sequences->count(['state' => ThreadState::PUBLISH]), 'crud' => 'sequences'],
             'drafts' => ['value' => $this->sequences->countDrafts(), 'crud' => 'sequences', 'alert' => true],
-            'cards' => ['value' => $this->entityManager->getRepository(Card::class)->count(['state' => ThreadState::PUBLISH]), 'crud' => 'cards'],
-            'resources' => ['value' => $this->entityManager->getRepository(Resource::class)->count(['published' => true]), 'crud' => 'resources'],
+            'cards' => ['value' => $this->repositories->of(Card::class)->count(['state' => ThreadState::PUBLISH]), 'crud' => 'cards'],
+            'resources' => ['value' => $this->repositories->of(Resource::class)->count(['published' => true]), 'crud' => 'resources'],
             'downloads' => ['value' => $this->resources->sumDownloads(), 'crud' => 'resources'],
             'bought' => ['value' => $this->entitlements->countSince($month), 'crud' => 'resource_offers'],
         ]];

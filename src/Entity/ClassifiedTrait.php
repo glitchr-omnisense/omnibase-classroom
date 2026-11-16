@@ -17,7 +17,7 @@ trait ClassifiedTrait
      *
      * @var list<array{url: string, label: string}>
      */
-    #[\Doctrine\ORM\Mapping\Column(type: 'json')]
+    #[\Base\Mapping\Column(type: 'json')]
     protected array $embeds = [];
 
     /** @return list<array{url: string, label: string}> */

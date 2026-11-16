@@ -7,7 +7,7 @@ use Base\Classroom\Repository\SessionRepository;
 use Base\Database\Attribute\DiscriminatorEntry;
 use Base\Entity\Thread;
 use Base\Service\Model\LinkableInterface;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**

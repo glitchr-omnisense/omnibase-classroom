@@ -8,7 +8,9 @@ use Base\Classroom\Repository\ResourceRepository;
 use Base\Classroom\Security\ResourceVoter;
 use Base\Service\DownloadLinks;
 use Base\Classroom\Service\SpreadsheetPreview;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
+use Base\Database\Repository\Finder\Key;
+use Base\Database\Repository\Repositories;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -32,7 +34,8 @@ class ResourceController extends AbstractController
     public function __construct(
         private readonly ResourceRepository $resources,
         private readonly EntitlementRepository $entitlements,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
+        private readonly Repositories $repositories,
         private readonly DownloadLinks $links,
         private readonly SpreadsheetPreview $preview,
         #[Autowire('%classroom.accel_prefix%')] private readonly string $accelPrefix = '',
@@ -46,7 +49,7 @@ class ResourceController extends AbstractController
         $resource = $this->resources->findOnePublished($slug) ?? throw $this->createNotFoundException();
         $offer = null;
         if ($resource->isPaid() && class_exists(\Base\Classroom\Entity\Product\ResourceOffer::class) && class_exists(\Base\Marketplace\Entity\Product::class)) {
-            $offer = $this->entityManager->getRepository(\Base\Classroom\Entity\Product\ResourceOffer::class)->findOneBy(['resource' => $resource]);
+            $offer = $this->repositories->of(\Base\Classroom\Entity\Product\ResourceOffer::class)->findOneBy(['resource' => Key::of($resource)]);
         }
 
         return $this->render('@Classroom/client/resource.html.twig', [
@@ -96,7 +99,7 @@ class ResourceController extends AbstractController
             if ($request->query->getInt('entitlement')) {
                 $this->entitlements->find($request->query->getInt('entitlement'))?->countDownload();
             }
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
         }
 
         $filename = $resource->getFilename() ?? $file->getFilename();

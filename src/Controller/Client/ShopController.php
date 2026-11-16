@@ -4,7 +4,7 @@ namespace Base\Classroom\Controller\Client;
 
 use Base\Classroom\Entity\Product\ResourceOffer;
 use Base\Classroom\Entity\Resource;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Database\Repository\Repositories;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,14 +17,14 @@ use Symfony\Component\Routing\Attribute\Route;
  */
 class ShopController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager)
+    public function __construct(private readonly Repositories $repositories)
     {
     }
 
     #[Route('/boutique', name: 'classroom_shop')]
     public function index(): Response
     {
-        $offers = $this->entityManager->getRepository(ResourceOffer::class)->findBy([], ['id' => 'DESC']);
+        $offers = $this->repositories->of(ResourceOffer::class)->findBy([], ['id' => 'DESC']);
 
         return $this->render('@Classroom/client/shop.html.twig', [
             'offers' => array_values(array_filter($offers, static fn (ResourceOffer $offer) => self::sellable($offer))),

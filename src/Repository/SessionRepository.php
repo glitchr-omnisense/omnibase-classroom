@@ -3,14 +3,14 @@
 namespace Base\Classroom\Repository;
 
 use Base\Classroom\Entity\Session;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
 /** @extends ServiceEntityRepository<Session> */
 class SessionRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, Session::class);
+        parent::__construct($finders, Session::class);
     }
 }

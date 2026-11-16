@@ -5,7 +5,7 @@ namespace Base\Classroom\Entity;
 use App\Entity\User;
 use Base\Database\Attribute\Timestamp;
 use Base\Traits\BaseTrait;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * The right to download a paid resource: written when the order holding its

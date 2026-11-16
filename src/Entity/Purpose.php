@@ -4,7 +4,7 @@ namespace Base\Classroom\Entity;
 
 use Base\Database\Attribute\DiscriminatorEntry;
 use Base\Entity\Thread\Taxon;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * "Pour la classe": what a thing is for rather than what it teaches -

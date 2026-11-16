@@ -3,52 +3,48 @@
 namespace Base\Classroom\Repository;
 
 use Base\Classroom\Entity\Card;
-use Base\Enum\ThreadState;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finder\Criterion;
+use Base\Database\Repository\Finder\Group;
+use Base\Database\Repository\Finder\Parser;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
 /** @extends ServiceEntityRepository<Card> */
 class CardRepository extends ServiceEntityRepository
 {
-    use ClassifiedRepositoryTrait;
+    use PublishedThreadsTrait;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, Card::class);
+        parent::__construct($finders, Card::class);
     }
 
     /** The fan: the featured cards in order, then the newest, up to $limit. @return list<Card> */
     public function findFeatured(int $limit = 9): array
     {
-        return $this->published()->orderBy('c.featured', 'DESC')->addOrderBy('c.position', 'ASC')->addOrderBy('c.publishedAt', 'DESC')
-            ->setMaxResults($limit)->getQuery()->getResult();
+        return $this->findBy($this->published(), ['featured' => 'DESC', 'position' => 'ASC', 'publishedAt' => 'DESC'], $limit);
     }
 
     /** @return list<Card> */
     public function findPublished(array $taxa = [], int $limit = 200): array
     {
-        return $this->classified($this->published(), $taxa)->orderBy('c.position', 'ASC')->addOrderBy('c.publishedAt', 'DESC')
-            ->setMaxResults($limit)->getQuery()->getResult();
+        return $this->findBy([...$this->published(), ...self::taxa($taxa)], ['position' => 'ASC', 'publishedAt' => 'DESC'], $limit);
     }
 
     public function findOnePublished(string $slug): ?Card
     {
-        return $this->published()->andWhere('c.slug = :slug')->setParameter('slug', $slug)->getQuery()->getOneOrNullResult();
+        return $this->findOneBy($this->published() + ['slug' => $slug]);
     }
 
     /** @return list<Card> */
     public function search(string $term, int $limit = 20): array
     {
-        return $this->published()->innerJoin('c.translations', 'tr')
-            ->andWhere('tr.title LIKE :term OR tr.headline LIKE :term OR tr.content LIKE :term')->setParameter('term', '%'.$term.'%')
-            ->setMaxResults($limit)->getQuery()->getResult();
-    }
-
-    private function published(): QueryBuilder
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.state = :published')->setParameter('published', ThreadState::PUBLISH)
-            ->andWhere('c.publishedAt IS NULL OR c.publishedAt <= CURRENT_TIMESTAMP()');
+        return $this->findBy($this->published() + [
+            Group::of(Parser::SEPARATOR_OR,
+                Criterion::of('translations.title', '%'.$term.'%', Parser::OPTION_PARTIAL),
+                Criterion::of('translations.headline', '%'.$term.'%', Parser::OPTION_PARTIAL),
+                Criterion::of('translations.content', '%'.$term.'%', Parser::OPTION_PARTIAL),
+            ),
+        ], null, $limit);
     }
 }

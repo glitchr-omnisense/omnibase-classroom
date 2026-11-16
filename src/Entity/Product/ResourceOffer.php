@@ -5,7 +5,7 @@ namespace Base\Classroom\Entity\Product;
 use Base\Classroom\Entity\Resource;
 use Base\Database\Attribute\DiscriminatorEntry;
 use Base\Marketplace\Entity\Product;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A resource for sale: a marketplace product whose delivery is a download.
