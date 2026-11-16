@@ -34,7 +34,7 @@ an image through omnibase's thumbnails.
 composer require omnibase/classroom
 ```
 
-Under Symfony it runs on the core's Symfony host: Composer brings `omnisense/omnibase` 5.1 and
+Under Symfony it runs on the core's Symfony host: Composer brings `omnisense/omnibase` 7.0 and
 `omnibridge/symfony` with it; `config/bundles.php` registers the core's bundle before this one
 (see the core's README for the other bundles a site usually adds):
 

@@ -1,13 +1,13 @@
 # Changelog
 
-## [Unreleased]
+## [2.0.0]
 
-omnibase/classroom 1.0.0: a teacher's classroom for omnibase sites (sequences, cards, resources to download or buy,
+omnibase/classroom 2.0.0: a teacher's classroom for omnibase sites (sequences, cards, resources to download or buy,
 levels, subjects and purposes) on the agnostic persistence. Its repositories extend
 `Base\Database\Repository\ServiceEntityRepository` and query in omnibase's finder language, the filter by several taxa
 at once included (`Criterion::hasAll()`), each query written once and compiled by the engine of the persistence chosen
 (omnibridge/doctrine or omnibridge/eloquent); its services write through `Base\Contract\UnitOfWork`. The code names
-`Base\` and its own `Base\Classroom\` only. Requires omnisense/omnibase and omnibridge/symfony `^1.0`.
+`Base\` and its own `Base\Classroom\` only. Requires omnisense/omnibase `^7.0` and omnibridge/symfony `^3.0`.
 
 ## [1.0.2] - 2026-11-14
 
